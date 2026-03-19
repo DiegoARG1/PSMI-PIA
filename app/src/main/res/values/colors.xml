@@ -2,4 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="fondo_principal">#0B203E</color>
+    <color name="acento_celeste">#1A659E</color>
+    <color name="texto_principal">#FFFFFF</color>
+    <color name="superficie">#152D54</color>
+
 </resources>
