@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="fondo_app">#08254B</color>
+    <color name="boton_crear">#1F6899</color>
+    <color name="boton_cancelar">#641313</color>
 </resources>

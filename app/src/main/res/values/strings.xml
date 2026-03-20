@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">SecureNotes</string>
+    <string name="nueva_contrasena">Nueva contraseña</string>
+    <string name="nueva_nota">Nueva nota</string>
+    <string name="titulo">Título:</string>
+    <string name="usuario">Usuario:</string>
+    <string name="contrasena">Contraseña:</string>
+    <string name="comentario">Comentarios: (opcional)</string>
+    <string name="contrasena_individual">Contraseña individual: (opcional)</string>
+    <string name="nota">Nota:</string>
+    <string name="crear">Crear</string>
+    <string name="cancelar">Cancelar</string>
 </resources>
