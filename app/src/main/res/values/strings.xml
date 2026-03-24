@@ -6,4 +6,10 @@
     <string name="txt_contrasena">Contraseña:</string>
     <string name="btn_entrar">Entrar</string>
 
+    <string name="txt_titulo_principal">Mi Bóveda</string>
+    <string name="txt_sin_notas">Aún no tienes notas o contraseñas guardadas.</string>
+    <string name="btn_nueva_nota">+ Nueva Nota</string>
+    <string name="filtro_todo">Todo</string>
+    <string name="filtro_notas">Notas</string>
+    <string name="filtro_pass">Contraseñas</string>
 </resources>
