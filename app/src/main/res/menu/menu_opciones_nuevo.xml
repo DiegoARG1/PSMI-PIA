@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/opcion_nota"
+        android:title="Nueva Nota" />
+    <item
+        android:id="@+id/opcion_pass"
+        android:title="Nueva Contraseña" />
+</menu>

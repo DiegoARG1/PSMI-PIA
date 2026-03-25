@@ -6,4 +6,8 @@
     </style>
 
     <style name="Theme.SecureNotes" parent="Base.Theme.SecureNotes" />
+    <style name="TemaMenuBoveda" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:colorBackground">@color/superficie</item>
+        <item name="android:textColor">@color/texto_principal</item>
+    </style>
 </resources>
