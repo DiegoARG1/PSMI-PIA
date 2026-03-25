@@ -15,6 +15,12 @@
             android:name=".PrincipalActivity"
             android:exported="false" />
         <activity
+            android:name=".NuevaNotaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NuevaContrasenaActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
