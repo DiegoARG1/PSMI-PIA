@@ -9,7 +9,6 @@
     android:fitsSystemWindows="true"
     tools:context=".NuevaNotaActivity">
 
-    <!-- La barra superior con diseño clásico de Android -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_nota"
         android:layout_width="match_parent"

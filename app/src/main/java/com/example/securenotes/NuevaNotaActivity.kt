@@ -13,28 +13,24 @@ class NuevaNotaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.nueva_nota)
 
-        // 1. Configuramos la Toolbar puramente visual y para regresar
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_nota)
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Nueva Nota"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         toolbar.setNavigationOnClickListener {
-            finish() // La flechita te regresa a la Bóveda
+            finish()
         }
 
-        // 2. Enlazamos los controles de la pantalla
         val etTitulo = findViewById<EditText>(R.id.et_titulo)
         val etContenido = findViewById<EditText>(R.id.et_usuario)
         val btnCrear = findViewById<Button>(R.id.btn_crear)
         val btnCancelar = findViewById<Button>(R.id.btn_cancelar)
 
-        // 3. El botón cancelar original de Mauro
         btnCancelar.setOnClickListener {
             finish()
         }
 
-        // 4. El botón crear original de Mauro
         btnCrear.setOnClickListener {
             val titulo = etTitulo.text.toString().trim()
             val contenido = etContenido.text.toString().trim()
