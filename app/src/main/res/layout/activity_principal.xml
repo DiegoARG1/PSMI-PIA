@@ -44,21 +44,11 @@
             android:textSize="11sp" />
 
         <Button
-            android:id="@+id/btnFiltroNotas"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/superficie"
-            android:text="@string/filtro_notas"
-            android:textColor="@color/texto_principal"
-            android:textSize="11sp" />
-
-        <Button
             android:id="@+id/btnFiltroPass"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginEnd="8dp"
             android:backgroundTint="@color/superficie"
             android:text="@string/filtro_pass"
             android:textColor="@color/texto_principal"
@@ -68,6 +58,16 @@
             android:maxLines="1"
             android:gravity="center"
             tools:textSize="11sp" />
+
+        <Button
+            android:id="@+id/btnFiltroNotas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/superficie"
+            android:text="@string/filtro_notas"
+            android:textColor="@color/texto_principal"
+            android:textSize="11sp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -131,13 +131,60 @@
         android:id="@+id/btn_info"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginBottom="36dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="@+id/et_contrasena_individual"
-        app:layout_constraintEnd_toStartOf="@+id/tv_contrasena_individual"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_contrasena_individual"
+        app:layout_constraintEnd_toEndOf="@+id/tv_contrasena_individual"
+        app:layout_constraintTop_toTopOf="@+id/tv_contrasena_individual"
         app:srcCompat="@drawable/info"
         app:tint="@color/acento_celeste" />
+
+    <!-- Overlay de Bloqueo para Edición -->
+    <LinearLayout
+        android:id="@+id/layout_bloqueo_edit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/fondo_principal"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/protegido"
+            android:textColor="@color/texto_principal"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/contrasena_individual_editar"
+            android:textColor="@color/texto_principal"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_pass_bloqueo_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:inputType="textPassword"
+            android:textColor="@color/texto_principal"
+            android:backgroundTint="@color/texto_principal" />
+
+        <Button
+            android:id="@+id/btn_desbloquear_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/acento_celeste"
+            android:text="@string/desbloquear" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

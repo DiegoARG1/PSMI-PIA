@@ -3,11 +3,13 @@ package com.example.securenotes
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +22,13 @@ class PrincipalActivity : AppCompatActivity() {
     private lateinit var tvVacio: TextView
     private lateinit var adapter: DatoAdapter
     private var listaDatos = mutableListOf<DatoBoveda>()
+
+    // Botones de filtro
+    private lateinit var btnTodo: Button
+    private lateinit var btnPass: Button
+    private lateinit var btnNotas: Button
+    
+    private var filtroActual = "TODO"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,9 +44,15 @@ class PrincipalActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerViewDatos)
         tvVacio = findViewById(R.id.tvVacio)
         
+        // Inicializar botones de filtro
+        btnTodo = findViewById(R.id.btnFiltroTodo)
+        btnPass = findViewById(R.id.btnFiltroPass)
+        btnNotas = findViewById(R.id.btnFiltroNotas)
+
+        configurarFiltros()
+
         recyclerView.layoutManager = LinearLayoutManager(this)
         
-        // Configurar el adapter con las acciones de eliminar, editar y clic en el item
         adapter = DatoAdapter(
             listaDatos,
             onEliminarClick = { dato -> confirmarEliminacion(dato) },
@@ -69,6 +84,33 @@ class PrincipalActivity : AppCompatActivity() {
         }
     }
 
+    private fun configurarFiltros() {
+        btnTodo.setOnClickListener {
+            filtroActual = "TODO"
+            actualizarEstiloFiltros()
+            cargarDatos()
+        }
+        btnPass.setOnClickListener {
+            filtroActual = "PASS"
+            actualizarEstiloFiltros()
+            cargarDatos()
+        }
+        btnNotas.setOnClickListener {
+            filtroActual = "NOTAS"
+            actualizarEstiloFiltros()
+            cargarDatos()
+        }
+    }
+
+    private fun actualizarEstiloFiltros() {
+        val colorActivo = ContextCompat.getColorStateList(this, R.color.acento_celeste)
+        val colorInactivo = ContextCompat.getColorStateList(this, R.color.superficie)
+
+        btnTodo.backgroundTintList = if (filtroActual == "TODO") colorActivo else colorInactivo
+        btnPass.backgroundTintList = if (filtroActual == "PASS") colorActivo else colorInactivo
+        btnNotas.backgroundTintList = if (filtroActual == "NOTAS") colorActivo else colorInactivo
+    }
+
     override fun onResume() {
         super.onResume()
         cargarDatos()
@@ -79,27 +121,31 @@ class PrincipalActivity : AppCompatActivity() {
         val dbHelper = DatabaseHelper(this)
         val db = dbHelper.readableDatabase
 
-        // Cargar Notas
-        val cursorNotas = db.query(DatabaseHelper.TABLE_NOTAS, null, null, null, null, null, null)
-        if (cursorNotas.moveToFirst()) {
-            do {
-                val id = cursorNotas.getInt(cursorNotas.getColumnIndexOrThrow(DatabaseHelper.COLUMN_NOTA_ID))
-                val titulo = cursorNotas.getString(cursorNotas.getColumnIndexOrThrow(DatabaseHelper.COLUMN_NOTA_TITULO))
-                listaDatos.add(DatoBoveda(id, titulo, TipoDato.NOTA))
-            } while (cursorNotas.moveToNext())
+        // Cargar Notas (si el filtro es TODO o NOTAS)
+        if (filtroActual == "TODO" || filtroActual == "NOTAS") {
+            val cursorNotas = db.query(DatabaseHelper.TABLE_NOTAS, null, null, null, null, null, null)
+            if (cursorNotas.moveToFirst()) {
+                do {
+                    val id = cursorNotas.getInt(cursorNotas.getColumnIndexOrThrow(DatabaseHelper.COLUMN_NOTA_ID))
+                    val titulo = cursorNotas.getString(cursorNotas.getColumnIndexOrThrow(DatabaseHelper.COLUMN_NOTA_TITULO))
+                    listaDatos.add(DatoBoveda(id, titulo, TipoDato.NOTA))
+                } while (cursorNotas.moveToNext())
+            }
+            cursorNotas.close()
         }
-        cursorNotas.close()
 
-        // Cargar Contraseñas
-        val cursorPass = db.query(DatabaseHelper.TABLE_CONTRASENIAS, null, null, null, null, null, null)
-        if (cursorPass.moveToFirst()) {
-            do {
-                val id = cursorPass.getInt(cursorPass.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PASS_ID))
-                val titulo = cursorPass.getString(cursorPass.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PASS_TITULO))
-                listaDatos.add(DatoBoveda(id, titulo, TipoDato.PASSWORD))
-            } while (cursorPass.moveToNext())
+        // Cargar Contraseñas (si el filtro es TODO o PASS)
+        if (filtroActual == "TODO" || filtroActual == "PASS") {
+            val cursorPass = db.query(DatabaseHelper.TABLE_CONTRASENIAS, null, null, null, null, null, null)
+            if (cursorPass.moveToFirst()) {
+                do {
+                    val id = cursorPass.getInt(cursorPass.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PASS_ID))
+                    val titulo = cursorPass.getString(cursorPass.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PASS_TITULO))
+                    listaDatos.add(DatoBoveda(id, titulo, TipoDato.PASSWORD))
+                } while (cursorPass.moveToNext())
+            }
+            cursorPass.close()
         }
-        cursorPass.close()
 
         db.close()
 
@@ -136,15 +182,13 @@ class PrincipalActivity : AppCompatActivity() {
     private fun eliminarDeBD(dato: DatoBoveda) {
         val dbHelper = DatabaseHelper(this)
         val db = dbHelper.writableDatabase
-        
         val tabla = if (dato.tipo == TipoDato.NOTA) DatabaseHelper.TABLE_NOTAS else DatabaseHelper.TABLE_CONTRASENIAS
         val columnaId = if (dato.tipo == TipoDato.NOTA) DatabaseHelper.COLUMN_NOTA_ID else DatabaseHelper.COLUMN_PASS_ID
         
         val resultado = db.delete(tabla, "$columnaId = ?", arrayOf(dato.id.toString()))
-        
         if (resultado > 0) {
             Toast.makeText(this, "Eliminado correctamente", Toast.LENGTH_SHORT).show()
-            cargarDatos() // Recargar lista
+            cargarDatos()
         } else {
             Toast.makeText(this, "Error al eliminar", Toast.LENGTH_SHORT).show()
         }
@@ -152,7 +196,12 @@ class PrincipalActivity : AppCompatActivity() {
     }
 
     private fun abrirEditor(dato: DatoBoveda) {
-        // Por ahora solo un mensaje, luego puedes crear el Activity para editar
-        Toast.makeText(this, "Editar: ${dato.titulo}", Toast.LENGTH_SHORT).show()
+        val intent = if (dato.tipo == TipoDato.NOTA) {
+            Intent(this, NuevaNotaActivity::class.java)
+        } else {
+            Intent(this, NuevaContrasenaActivity::class.java)
+        }
+        intent.putExtra("ID", dato.id)
+        startActivity(intent)
     }
 }
