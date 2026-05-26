@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 class DatoAdapter(
     private var lista: List<DatoBoveda>,
     private val onEliminarClick: (DatoBoveda) -> Unit,
-    private val onEditarClick: (DatoBoveda) -> Unit
+    private val onEditarClick: (DatoBoveda) -> Unit,
+    private val onItemClick: (DatoBoveda) -> Unit
 ) : RecyclerView.Adapter<DatoAdapter.DatoViewHolder>() {
 
     class DatoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -34,6 +35,10 @@ class DatoAdapter(
             holder.icono.setImageResource(R.drawable.archivo)
         } else {
             holder.icono.setImageResource(R.drawable.candado)
+        }
+
+        holder.itemView.setOnClickListener {
+            onItemClick(dato)
         }
 
         holder.btnOpciones.setOnClickListener { view ->

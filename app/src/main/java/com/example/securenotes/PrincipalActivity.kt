@@ -37,11 +37,12 @@ class PrincipalActivity : AppCompatActivity() {
         
         recyclerView.layoutManager = LinearLayoutManager(this)
         
-        // Configurar el adapter con las acciones de eliminar y editar
+        // Configurar el adapter con las acciones de eliminar, editar y clic en el item
         adapter = DatoAdapter(
             listaDatos,
             onEliminarClick = { dato -> confirmarEliminacion(dato) },
-            onEditarClick = { dato -> abrirEditor(dato) }
+            onEditarClick = { dato -> abrirEditor(dato) },
+            onItemClick = { dato -> verDetalle(dato) }
         )
         recyclerView.adapter = adapter
 
@@ -111,6 +112,14 @@ class PrincipalActivity : AppCompatActivity() {
         }
 
         adapter.actualizarLista(listaDatos)
+    }
+
+    private fun verDetalle(dato: DatoBoveda) {
+        val intent = Intent(this, DetalleActivity::class.java).apply {
+            putExtra("ID", dato.id)
+            putExtra("TIPO", dato.tipo.name)
+        }
+        startActivity(intent)
     }
 
     private fun confirmarEliminacion(dato: DatoBoveda) {

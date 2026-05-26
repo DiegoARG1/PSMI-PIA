@@ -29,6 +29,11 @@ class NuevaContrasenaActivity : AppCompatActivity() {
         val etContrasenaIndividual = findViewById<EditText>(R.id.et_contrasena_individual)
 
         val btnCrear = findViewById<Button>(R.id.btn_crear)
+        val btnInfo = findViewById<android.widget.ImageButton>(R.id.btn_info)
+
+        btnInfo.setOnClickListener {
+            mostrarDialogoInfo()
+        }
 
         btnCrear.setOnClickListener {
             val titulo = etTitulo.text.toString().trim()
@@ -67,5 +72,13 @@ class NuevaContrasenaActivity : AppCompatActivity() {
         }
 
         db.close()
+    }
+
+    private fun mostrarDialogoInfo() {
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Contraseña individual")
+            .setMessage("Si estableces una contraseña individual, se te pedirá cada vez que intentes ver este contenido. Esto añade una capa extra de seguridad.")
+            .setPositiveButton("Continuar", null)
+            .show()
     }
 }

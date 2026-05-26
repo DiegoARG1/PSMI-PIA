@@ -132,10 +132,10 @@
         android:id="@+id/et_contrasena_individual"
         android:layout_width="330dp"
         android:layout_height="40dp"
+        android:backgroundTint="@color/texto_principal"
         android:ems="10"
         android:inputType="text"
         android:textColor="@color/texto_principal"
-        android:backgroundTint="@color/texto_principal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_contrasena_individual" />
@@ -152,7 +152,19 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_info"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="36dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="@+id/et_contrasena_individual"
+        app:layout_constraintEnd_toStartOf="@+id/tv_contrasena_individual"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/info"
+        app:tint="@color/acento_celeste" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

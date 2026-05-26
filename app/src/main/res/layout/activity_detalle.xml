@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo_principal"
+    android:fitsSystemWindows="true">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_detalle"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#121A2F"
+        android:elevation="4dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/white" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_detalle">
+
+        <LinearLayout
+            android:id="@+id/layout_contenido_detalle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <!-- Campo Dinámico 1 (Nota o Usuario) -->
+            <TextView
+                android:id="@+id/tv_etiqueta_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Etiqueta 1"
+                android:textColor="@color/acento_celeste"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/superficie"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/tv_valor_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Valor 1"
+                    android:textColor="@color/texto_principal"
+                    android:textSize="16sp" />
+
+                <ImageButton
+                    android:id="@+id/btn_copiar_1"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/copiar"
+                    android:scaleType="centerInside"
+                    app:tint="@color/acento_celeste" />
+            </LinearLayout>
+
+            <!-- Campo Dinámico 2 (Solo para Contraseñas) -->
+            <LinearLayout
+                android:id="@+id/layout_campo_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Contraseña:"
+                    android:textColor="@color/acento_celeste"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/superficie"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_valor_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="********"
+                        android:textColor="@color/texto_principal"
+                        android:textSize="16sp" />
+
+                    <ImageButton
+                        android:id="@+id/btn_copiar_2"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/copiar"
+                        android:scaleType="centerInside"
+                        app:tint="@color/acento_celeste" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Comentarios -->
+            <TextView
+                android:id="@+id/tv_etiqueta_comentario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Comentarios:"
+                android:textColor="@color/acento_celeste"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_valor_comentario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/superficie"
+                android:padding="12dp"
+                android:text="Sin comentarios"
+                android:textColor="@color/texto_principal"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Overlay de Bloqueo -->
+    <LinearLayout
+        android:id="@+id/layout_bloqueo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/fondo_principal"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/protegido"
+            android:textColor="@color/texto_principal"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/introducir_contrasena_individual"
+            android:textColor="@color/texto_principal"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_pass_individual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:inputType="textPassword"
+            android:textColor="@color/texto_principal"
+            android:backgroundTint="@color/texto_principal" />
+
+        <Button
+            android:id="@+id/btn_desbloquear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/acento_celeste"
+            android:text="@string/desbloquear" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

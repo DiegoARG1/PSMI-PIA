@@ -22,4 +22,7 @@
     <string name="nota">Nota:</string>
     <string name="crear">Crear</string>
     <string name="cancelar">Cancelar</string>
+    <string name="protegido">Este contenido esta protegido</string>
+    <string name="introducir_contrasena_individual">Introduce la contraseña individual para poder ver el contenido</string>
+    <string name="desbloquear">Desbloquear</string>
 </resources>
