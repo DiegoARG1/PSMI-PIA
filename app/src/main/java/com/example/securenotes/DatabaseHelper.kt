@@ -7,25 +7,63 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     companion object {
         private const val DATABASE_NAME = "SecureNotesDB.db"
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 3
 
+        //Tabla Usuario
+        const val TABLE_USUARIO = "Usuario"
+        const val COLUMN_USER_ID = "IdUsuario"
+        const val COLUMN_USER_NOMBRE = "NombreUsuario"
+        const val COLUMN_USER_PASSWORD = "Contrasenia"
+
+        //Tabla Contrasenia
+        const val TABLE_CONTRASENIAS = "Contrasenia"
+        const val COLUMN_PASS_ID = "IdContrasenia"
+        const val COLUMN_PASS_TITULO = "Titulo"
+        const val COLUMN_PASS_USER_CUENTA = "UsuarioCuenta"
+        const val COLUMN_PASS_VALOR_CUENTA = "ContraseniaCuenta"
+        const val COLUMN_PASS_COMENTARIOS = "Comentarios"
+        const val COLUMN_PASS_INDIVIDUAL = "ContraseniaIndividual"
+
+        //Tabla Nota
         const val TABLE_NOTAS = "Nota"
-        const val COLUMN_ID = "IdNota"
-        const val COLUMN_TITULO = "Titulo"
-        const val COLUMN_CONTENIDO = "Contenido"
+        const val COLUMN_NOTA_ID = "IdNota"
+        const val COLUMN_NOTA_TITULO = "Titulo"
+        const val COLUMN_NOTA_CONTENIDO = "Contenido"
+        const val COLUMN_NOTA_COMENTARIOS = "Comentarios"
+        const val COLUMN_NOTA_INDIVIDUAL = "ContraseniaIndividual"
     }
 
     override fun onCreate(db: SQLiteDatabase) {
-        val createTableNotas = ("CREATE TABLE " + TABLE_NOTAS + "("
-                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + COLUMN_TITULO + " TEXT NOT NULL, "
-                + COLUMN_CONTENIDO + " TEXT NOT NULL)")
+        val createTableUsuario = ("CREATE TABLE $TABLE_USUARIO (" +
+                "$COLUMN_USER_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "$COLUMN_USER_NOMBRE TEXT NOT NULL, " +
+                "$COLUMN_USER_PASSWORD TEXT NOT NULL)")
 
+        val createTableContrasenia = ("CREATE TABLE $TABLE_CONTRASENIAS (" +
+                "$COLUMN_PASS_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "$COLUMN_PASS_TITULO TEXT NOT NULL, " +
+                "$COLUMN_PASS_USER_CUENTA TEXT NOT NULL, " +
+                "$COLUMN_PASS_VALOR_CUENTA TEXT NOT NULL, " +
+                "$COLUMN_PASS_COMENTARIOS TEXT, " +
+                "$COLUMN_PASS_INDIVIDUAL TEXT)")
+
+        // Crear Tabla Nota
+        val createTableNotas = ("CREATE TABLE $TABLE_NOTAS (" +
+                "$COLUMN_NOTA_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "$COLUMN_NOTA_TITULO TEXT NOT NULL, " +
+                "$COLUMN_NOTA_CONTENIDO TEXT NOT NULL, " +
+                "$COLUMN_NOTA_COMENTARIOS TEXT, " +
+                "$COLUMN_NOTA_INDIVIDUAL TEXT)")
+
+        db.execSQL(createTableUsuario)
+        db.execSQL(createTableContrasenia)
         db.execSQL(createTableNotas)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NOTAS)
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_USUARIO")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_CONTRASENIAS")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_NOTAS")
         onCreate(db)
     }
 }
