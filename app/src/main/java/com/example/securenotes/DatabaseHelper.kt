@@ -7,7 +7,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     companion object {
         private const val DATABASE_NAME = "SecureNotesDB.db"
-        private const val DATABASE_VERSION = 3
+        private const val DATABASE_VERSION = 4
 
         //Tabla Usuario
         const val TABLE_USUARIO = "Usuario"
@@ -41,21 +41,26 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         val createTableContrasenia = ("CREATE TABLE $TABLE_CONTRASENIAS (" +
                 "$COLUMN_PASS_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "IdUsuario INTEGER DEFAULT 1, " + // <-- La llave foránea
                 "$COLUMN_PASS_TITULO TEXT NOT NULL, " +
                 "$COLUMN_PASS_USER_CUENTA TEXT NOT NULL, " +
                 "$COLUMN_PASS_VALOR_CUENTA TEXT NOT NULL, " +
                 "$COLUMN_PASS_COMENTARIOS TEXT, " +
-                "$COLUMN_PASS_INDIVIDUAL TEXT)")
+                "$COLUMN_PASS_INDIVIDUAL TEXT, " +
+                "FOREIGN KEY(IdUsuario) REFERENCES $TABLE_USUARIO($COLUMN_USER_ID))")
 
-        // Crear Tabla Nota
         val createTableNotas = ("CREATE TABLE $TABLE_NOTAS (" +
                 "$COLUMN_NOTA_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "IdUsuario INTEGER DEFAULT 1, " + // <-- La llave foránea
                 "$COLUMN_NOTA_TITULO TEXT NOT NULL, " +
                 "$COLUMN_NOTA_CONTENIDO TEXT NOT NULL, " +
                 "$COLUMN_NOTA_COMENTARIOS TEXT, " +
-                "$COLUMN_NOTA_INDIVIDUAL TEXT)")
+                "$COLUMN_NOTA_INDIVIDUAL TEXT, " +
+                "FOREIGN KEY(IdUsuario) REFERENCES $TABLE_USUARIO($COLUMN_USER_ID))")
 
         db.execSQL(createTableUsuario)
+        db.execSQL("INSERT INTO $TABLE_USUARIO ($COLUMN_USER_NOMBRE, $COLUMN_USER_PASSWORD) VALUES ('admin', '1234')")
+
         db.execSQL(createTableContrasenia)
         db.execSQL(createTableNotas)
     }
